@@ -1,0 +1,25 @@
+.baseContainer{
+    position: relative;
+}
+.mainContainer{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.container{
+    display:flex;
+    flex-direction:row;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+.select{
+  top: 88px;
+    right: 270px;
+    position: absolute;
+}
+@media   (max-width: 1830px) {
+    .select {
+    display: none;
+    }
+}

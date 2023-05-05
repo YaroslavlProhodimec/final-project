@@ -1,68 +1,28 @@
 import * as React from 'react';
-import {alpha, styled} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import {Badge, Link} from '@mui/material';
-
-const Search = styled('div')(({theme}) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-const SearchIconWrapper = styled('div')(({theme}) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
+import {SearchParam} from "./miniHeaderComponent/search/SearchParam";
 
 
-const StyledInputBase = styled(InputBase)(({theme}) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
-}));
 type PropsHeaderType = {
     openBasket: () => void
     order: number
-
+    setSearchParams:()=>void
+    searchParams:any
+    postQwery:string
 }
 
-export function Header({openBasket, order}: PropsHeaderType) {
+export function Header({openBasket, order,setSearchParams,searchParams,postQwery}: PropsHeaderType) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
         React.useState<null | HTMLElement>(null);
@@ -108,8 +68,8 @@ export function Header({openBasket, order}: PropsHeaderType) {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem  onClick={handleMenuClose}><Link href="/login" underline="none">Profile</Link></MenuItem>
-            <MenuItem onClick={handleMenuClose}><Link href="/login" underline="none">My account</Link></MenuItem>
+            <MenuItem  onClick={handleMenuClose}><Link href="/login" underline="none">Sign-in</Link></MenuItem>
+            <MenuItem onClick={handleMenuClose}><Link href="/" underline="none">Log-out</Link></MenuItem>
         </Menu>
     );
 
@@ -168,38 +128,11 @@ export function Header({openBasket, order}: PropsHeaderType) {
                         noWrap
                         component="div"
                         sx={{display: {xs: 'none', sm: 'block'}}}
+
                     >
                         БАРХАТНЫЕ ТЯГИ
                     </Typography>
-
-                    <Box sx={{flexGrow: 1}}/>
-                    <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                        <Search>
-                            <SearchIconWrapper>
-                                <SearchIcon/>
-                            </SearchIconWrapper>
-                            <StyledInputBase
-                                sx={{textAlign: 'center'}}
-                                placeholder="Search…"
-                                inputProps={{'aria-label': 'search'}}
-                            />
-                        </Search>
-
-                        <IconButton
-
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle/>
-                        </IconButton>
-
-                    </Box>
-
+                    <SearchParam postQwery={postQwery} searchParams={searchParams} setSearchParams={setSearchParams} menuId={menuId}  handleProfileMenuOpen={handleProfileMenuOpen}/>
                     <Box sx={{display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
@@ -223,6 +156,7 @@ export function Header({openBasket, order}: PropsHeaderType) {
 
                     </IconButton>
                 </Toolbar>
+
             </AppBar>
             {renderMobileMenu}
             {renderMenu}

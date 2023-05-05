@@ -1,7 +1,7 @@
 {
-  "name": "finalProject",
+  "name": "final-project",
   "version": "0.1.0",
-  "homepage": "https://YaroslavlProhodimec.github.io/finalProject",
+  "homepage": "https://YaroslavlProhodimec.github.io/final-project",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.8",

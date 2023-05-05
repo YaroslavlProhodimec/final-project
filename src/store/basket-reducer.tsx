@@ -11,9 +11,9 @@ export const basketReducer = (state: ProductsType[] = initialState, action: Acti
     switch (action.type) {
         case 'ADD-BASKET' :
              const onBasketTrue = state.find(el => el.id === action.id)
-            console.log(action,state)
+
             if(onBasketTrue) {
-                console.log(onBasketTrue, 'bas')
+
                 return state.map(el => el.id === action.id ?
                     {...el, quantity:el.quantity + action.quantity} : el)
             }
