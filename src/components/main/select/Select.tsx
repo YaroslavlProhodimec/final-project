@@ -1,10 +1,5 @@
-import React, {
-    SelectHTMLAttributes,
-    DetailedHTMLProps,
-    ChangeEvent, useState,
-} from 'react'
+import React, {DetailedHTMLProps, SelectHTMLAttributes,} from 'react'
 import s from './Select.module.css'
-import {useSelector} from "react-redux";
 import {useAppDispatch, useAppSelector} from "../../../store/store";
 import {filterPropductsAC} from "../../../store/app-reducer";
 

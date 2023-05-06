@@ -6,7 +6,6 @@ const initialState: any = {
 }
 type initialStateType = typeof initialState
 
-console.log(initialState)
 
 export const loginReducer = (state: initialStateType = initialState, action: ActionsType): any => {
     switch (action.type) {

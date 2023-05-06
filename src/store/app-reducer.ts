@@ -1,31 +1,18 @@
-import {v1} from "uuid";
-import nikeBlack from '../image/nikeBlack.png';
-import nikeYellow from '../image/nikeYellow.png';
-import nikePink from '../image/nikePink.png';
-import balanseaga from '../image/balanseaga.png';
-import adidasBrown from '../image/adidasBrown.png';
-import adidasGold from '../image/adidasGold.png';
-import adidasGray from '../image/adidasGray.png';
-import adidasPink from '../image/adidasPink.png';
-import nikeGreen from '../image/nikeGreen.png';
+import {appAPI} from "../api/api-products";
 
-const initialState: ProductsType[] = [
-    {id:v1(),image:nikeBlack,name:'Подкрадули',price:3000,quantity:0,qualification:'Бархатные'},
-    {id:v1(),image:nikeYellow,name:'Бомбовые-вездеходки',price:3000,quantity:0,qualification:'Бархатные'},
-    {id:v1(),image:nikePink,name:'Буксовки-шальные',price:3000,quantity:0,qualification:'Бархатные'},
-    {id:v1(),image:balanseaga,name:'ХулиганкиНеМестные',price:3000,quantity:0,qualification:'Крышесноска'},
-    {id:v1(),image:adidasBrown,name:'ВайШоЗаТяги',price:3000,quantity:0,qualification:'Бархатные'},
-    {id:v1(),image:adidasGold,name:'GrandMother-style',price:3000,quantity:0,qualification:'Крышесноска'},
-    {id:v1(),image:nikeGreen,name:'КтоТыВоин',price:3000,quantity:0,qualification:'Бархатные'},
-    {id:v1(),image:adidasGray,name:'Воздуханки',price:3000,quantity:0,qualification:'Бархатные'},
-    {id:v1(),image:adidasPink,name:'Розовая-LADY',price:3000,quantity:0,qualification:'Крышесноска'},
+
+
+const initialState: any = [
+
 ]
-export const productsReducer = (state: ProductsType[] = initialState, action: ActionsType):any => {
+export const productsReducer = (state: any = initialState, action: ActionsType):any => {
     switch (action.type) {
         case 'APP/SET-PRODUCTS' :
-            return state.map(el=>({...el}))
+            console.log(action.products,'reducer')
+            return action.products
+
         case 'FILTER-PRODUCTS' :
-            return state.filter(el=> el.qualification === action.qualification)
+            return state.filter((el: { qualification: string; })=> el.qualification === action.qualification)
         default:
             return [ ...state]
     }
@@ -36,14 +23,21 @@ export type ProductsType = {
     image?:any
     name:string
     price:number
-    quantity:number
     qualification:string
+    quantity:number
 }
 
-export const getPropductsAC = (products:ProductsType) => ({type: 'APP/SET-PRODUCTS', products} as const)
+export const getPropductsAC = (products:any) => ({type: 'APP/SET-PRODUCTS', products} as const)
 export const filterPropductsAC = (qualification:string) => ({type: 'FILTER-PRODUCTS', qualification} as const)
 
-export const fetchTodolistsTC =
+export const fetchProductsTC = () => (dispatch:any) => {
+    return  appAPI.app().then((res)=> {
+        console.log(res.data[0],'axios')
+            dispatch(getPropductsAC(res.data))
+        }
+    )
+
+}
 
 export type getPropductsACType = ReturnType<typeof getPropductsAC>
 export type filterPropductsACType = ReturnType<typeof filterPropductsAC>
@@ -63,7 +57,7 @@ type ActionsType =
 //     {
 //         "id": 1,
 //         "image": "https://drive.google.com/file/d/1lm4dGhefL83vA_ijppncP2k8_Wty_sct/view?usp=share_link",
-//         "name": "GrandMother-style",
+//         "name": "Бешенки",
 //         "price": 11500,
 //         "quantity": 0,
 //         "qualification": "Крышесноска"
@@ -123,5 +117,5 @@ type ActionsType =
 //         "price": 55500,
 //         "quantity": 0,
 //         "qualification": "Крышесноска"
-//     },
-//  ]
+//     }
+// ]

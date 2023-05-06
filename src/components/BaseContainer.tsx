@@ -10,6 +10,7 @@ import {Snack} from "./footer/Snack";
 import {useSearchParams} from "react-router-dom";
 import {SuperSelect} from "./main/select/Select";
 import Box from '@mui/material/Box';
+import {fetchProductsTC} from "../store/app-reducer";
 
 const BaseContainer = () => {
     const products = useAppSelector(state => state.products)
@@ -25,12 +26,10 @@ const BaseContainer = () => {
     const [alert, setAlert] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams()
     const postQwery = searchParams.get('post') || '';
-    console.log(products )
-    useEffect(() => {
-        const thunk = fetchTodolistsTC()
-        dispatch(thunk)
+    console.log(products,'то что надо дальше мапить')
+     useEffect(() => {
+         dispatch(fetchProductsTC())
     }, [])
-    fetch('https://64542d14c18adbbdfeb0f6bc.mockapi.io/items')
     return (
         <div className={s.baseContainer} >
             <Header postQwery={postQwery} searchParams={searchParams} setSearchParams={setSearchParams} order={basket.length}

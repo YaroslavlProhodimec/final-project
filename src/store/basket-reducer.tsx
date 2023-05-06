@@ -1,12 +1,10 @@
 import {ProductsType} from "./app-reducer";
-import {v1} from "uuid";
-import adidasGray from "../image/adidasGray.png";
 
 
 const initialState: ProductsType[]  = [
 
 ]
-console.log(initialState)
+
 export const basketReducer = (state: ProductsType[] = initialState, action: ActionsType): any => {
     switch (action.type) {
         case 'ADD-BASKET' :
